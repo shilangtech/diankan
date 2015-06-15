@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
+       
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/myWhite"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dip"
+                android:orientation="horizontal" >
+
+                <LinearLayout
+                    android:layout_width="0dip"
+                    android:layout_height="50dip"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center" >
+
+                    <ImageView
+                        android:id="@+id/imageview_plus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/message_btn_more"
+                        android:visibility="gone" />
+                    <ImageView
+                        android:id="@+id/imageview_zan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/message_btn_menu_zan"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/btn_toWord"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="文字"
+                        android:textSize="15sp"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/message_editText_layout"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dip"
+                    android:layout_weight="5"
+                    android:layout_gravity="center_vertical"
+                    android:visibility="visible" >
+
+                    <EditText
+                        android:id="@+id/message_editText"
+                        style="@style/my_edittext_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignBottom="@+id/edittextImage"
+                        android:layout_alignLeft="@+id/edittextImage"
+                        android:layout_alignTop="@+id/edittextImage"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/rounded_edittext"
+                        android:hint="回复留言"
+                        android:paddingRight="3dp"
+                        android:textSize="12sp" />
+
+                    <ImageView
+                        android:id="@+id/edittextImage"
+                        android:layout_width="40dip"
+                        android:layout_height="40dip"
+                        android:padding="10dp"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="10dip"
+                        android:src="@drawable/edit_image" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/recording_editText_layout"
+                    android:layout_width="0dip"
+                    android:layout_height="40dp"
+                    android:layout_margin="4dip"
+                    android:layout_weight="5"
+                    android:background="@drawable/rounded_edittext"
+                    android:visibility="gone" >
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/send_message"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="发送"
+                    android:focusable="true"
+                    android:visibility="gone"
+                    android:textColor="#3A5FCD"
+                    android:textSize="18sp" />
+                <Button
+                    android:id="@+id/save_message"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="完成"
+                    android:background="@null"
+                    android:focusable="true"
+                    android:visibility="gone"
+                    android:textColor="#3A5FCD"
+                    android:textSize="18sp" />
+                <LinearLayout 
+                     android:id="@+id/imageview_collect" 
+                   android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                     android:visibility="gone"
+                    android:layout_weight="1" >
+                    <ImageView
+                                      
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                   
+                    android:background="@drawable/message_btn_menu_collect"
+                   />
+                </LinearLayout>
+                 
+            </LinearLayout>
+
+            <include
+                android:id="@+id/face_content"
+                layout="@layout/message_face_content"
+                android:visibility="gone" />
+
+            <include
+                android:id="@+id/record_content"
+                layout="@layout/message_record_content"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/record_anim_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" 
+                android:layout_marginLeft="75dp"
+                android:layout_marginTop="10dp"     
+            android:visibility="gone" >
+
+            <RelativeLayout
+                android:id="@+id/record_anim_bg"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:background="@drawable/voice_rcd_hint_bg" >
+
+                <ImageView
+                    android:id="@+id/record_anim"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/record_amp3" />
+
+                <TextView
+                    android:id="@+id/record_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/record_anim"
+               
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="1"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/message_image1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp" />
+
+    <com.shilangtech.diankan.message_send.ShrinkRelativeLayout
+        android:id="@+id/menus_wrapper"
+        android:layout_width="fill_parent"
+        android:layout_height="80dip"
+        android:layout_above="@+id/bottom"
+        android:layout_alignParentLeft="true"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:focusable="true" >
+
+        <com.shilangtech.diankan.message_send.ImageButtonExtend
+            android:id="@+id/menu_face"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/message_btn_menu_face"
+            android:visibility="gone" />
+
+        <com.shilangtech.diankan.message_send.ImageButtonExtend
+            android:id="@+id/menu_record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="50dp"
+            android:background="@drawable/message_btn_menu_record"
+            android:visibility="gone" />
+
+        <com.shilangtech.diankan.message_send.ImageButtonExtend
+            android:id="@+id/menu_pic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="90dp"
+            android:background="@drawable/message_btn_menu_pic"
+            android:visibility="gone" />
+
+        <com.shilangtech.diankan.message_send.ImageButtonExtend
+            android:id="@+id/menu_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="130dp"
+            android:background="@drawable/message_btn_menu_camera"
+            android:visibility="gone" />
+    </com.shilangtech.diankan.message_send.ShrinkRelativeLayout>
+
+    <com.shilangtech.diankan.message_send.ShrinkRelativeLayout
+        android:id="@+id/message_send_mode"
+        android:layout_width="60dp"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/bottom"
+        android:layout_alignParentRight="true"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:focusable="true" >
+
+        <com.shilangtech.diankan.message_send.ImageButtonExtend
+            android:id="@+id/send_mode_public"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/message_btn_sendmode_public"
+            android:visibility="gone" />
+
+        <com.shilangtech.diankan.message_send.ImageButtonExtend
+            android:id="@+id/send_mode_private"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/send_mode_public"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="2dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/message_btn_sendmode_private"
+            android:visibility="gone" />
+    </com.shilangtech.diankan.message_send.ShrinkRelativeLayout>
+
+</RelativeLayout>

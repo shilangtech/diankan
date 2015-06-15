@@ -1,0 +1,239 @@
+﻿package com.shilangtech.diankan.message_send;
+
+import java.io.IOException;
+
+import com.shilangtech.diankan.util.G726DecodeJni;
+
+import android.media.AudioFormat;
+import android.media.AudioManager;
+import android.media.AudioRecord;
+import android.media.AudioTrack;
+import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnCompletionListener;
+import android.media.MediaRecorder;
+import android.media.MediaRecorder.OnErrorListener;
+import android.os.Environment;
+import android.util.Log;
+
+/**
+ * @author Google_acmer
+ * 
+ *         录音类
+ *
+ */
+public class RecordUtil implements OnErrorListener {
+	
+    static {
+        System.loadLibrary("g726jni");
+    }
+
+	private MediaRecorder mRecorder;
+
+	String Filename = Environment.getExternalStorageDirectory()
+			.getAbsolutePath() + "/record.amr";
+	private MediaPlayer mPlayer;
+	static boolean startRecord = false;
+	static boolean stopRecordPlay= false;
+
+	AudioTrack track;
+	static byte[] mRecord = new byte[1024*1024*2/8];
+	public void start() {
+//		if (mRecorder == null) {
+//			mRecorder = new MediaRecorder();
+//			mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+//			mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+//			mRecorder.setOutputFile(Filename);
+//			mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+//			mRecorder.setOnErrorListener(this);
+//		}
+//		try {
+//			mRecorder.prepare();
+//			mRecorder.start();
+//		} catch (IOException e) {
+//			// Log.e(LOG_TAG, "prepare() failed");
+//		}
+		new Thread() {
+			public void run() {
+		startAudioRecord();
+			}
+		}.start();
+	}
+
+	private void startAudioRecord() {
+		int samp_rate = 8000;
+		int min = AudioRecord.getMinBufferSize(samp_rate,
+				AudioFormat.CHANNEL_CONFIGURATION_MONO,
+				AudioFormat.ENCODING_PCM_16BIT);
+
+		AudioRecord record = null;
+		record = new AudioRecord(
+				MediaRecorder.AudioSource.MIC,// the recording source
+				samp_rate, // 8000hz/s
+				AudioFormat.CHANNEL_OUT_DEFAULT,
+				AudioFormat.ENCODING_PCM_16BIT, min * 10);
+		try {
+			record.startRecording();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return;
+		}
+		byte[] speech = new byte[960];
+		byte[] bitstream = new byte[120];
+		int num = 0;
+		G726DecodeJni g726 = new G726DecodeJni();
+		startRecord = true;
+		int count=0;
+		byte[] recordData = new byte[1024*1024*2/8];
+		while (startRecord) {
+			num = record.read(speech, 0, 960);
+			// Log.e(TAG, "num:" + num);
+			// calc1(encodeData,0,160);
+			if (num == AudioRecord.ERROR_INVALID_OPERATION
+					|| num == AudioRecord.ERROR_BAD_VALUE) {
+				Log.e("RecordUtil", "Bad ");
+				continue;
+			}
+			g726.g726_Encode(speech, bitstream);
+//			for(int i=0;i<bitstream.length;i++) {
+//				mRecord[120*count+i]=bitstream[i];
+//			}
+			 System.arraycopy(bitstream, 0, recordData, 120*count, bitstream.length);
+			count++;
+		}
+		mRecord = new byte[120*count];
+		System.arraycopy(recordData, 0, mRecord, 0, 120*count);
+	}
+
+	public void stop() {
+		startRecord=false;
+		// Log.e("TAG", "stop()");
+//		if (mRecorder != null) {
+//			//
+//			mRecorder.setOnErrorListener(null);
+//			mRecorder.stop();
+//
+//			mRecorder.release();
+//			mRecorder = null;
+//			Log.e("TAG", "stop ok");
+//			mPlayer = new MediaPlayer();
+//
+//			try {
+//				mPlayer.setDataSource(Filename);
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
+	}
+
+//	public void pause() {
+//		if (mRecorder != null) {
+//			mRecorder.setOnErrorListener(null);
+//			mRecorder.stop();
+//		}
+//	}
+
+    public void initAudioTrack() {
+        int maxjitter = AudioTrack.getMinBufferSize(8000,
+                AudioFormat.CHANNEL_CONFIGURATION_MONO,
+                AudioFormat.ENCODING_PCM_16BIT);
+        track = new AudioTrack(AudioManager.STREAM_MUSIC, 8000,
+                AudioFormat.CHANNEL_CONFIGURATION_MONO,
+                AudioFormat.ENCODING_PCM_16BIT, maxjitter * 10,
+                AudioTrack.MODE_STREAM);
+        track.play();
+    }
+
+
+    private void finishAudioTrack() {
+        if (track != null) {
+            try {
+                track.stop();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            track.release();
+        }
+    }
+
+    private void playAudio(byte[] waveData) {
+        if (track == null)
+            return;
+        track.write(waveData, 0, 960);
+    }
+
+    private void playRecord() {
+		int count = 0;
+		stopRecordPlay = true;
+		while (stopRecordPlay) {
+			if (120*count + 120 > mRecord.length) break;
+			byte[] waveData = new byte[960];
+			byte[] buf = new byte[120];
+			System.arraycopy(mRecord, 120*count, buf, 0, 120);
+			new G726DecodeJni().g726_Decode(buf, waveData);
+			playAudio(waveData);
+			count++;
+		}
+		
+//		byte[] waveData = new byte[960];
+//		byte[] buf = new byte[120];
+//		System.arraycopy(mRecord, 120*count, buf, 0, mRecord.length-120*count);
+//		new G726DecodeJni().g726_Decode(buf, waveData);
+//		playAudio(waveData);
+		finishAudioTrack();
+		
+    }
+	public void recordPlay() {
+		
+		new Thread() {
+			public void run() {
+				playRecord();
+			}
+		}.start();
+
+//		if (!mPlayer.isPlaying()) {
+//			try {
+//				mPlayer.prepare();
+//				mPlayer.start();
+//			} catch (IOException e) {
+//				Log.e("TAG", "播放失败");
+//			}
+//
+//		} else {
+//			mPlayer.stop();
+//		}
+//		mPlayer.setOnCompletionListener(new OnCompletionListener() {
+//
+//			@Override
+//			public void onCompletion(MediaPlayer mp) {
+//				// TODO 自动生成的方法存根
+//				Log.e("TAG1", "player stop!");
+//				mPlayer.stop();
+//			}
+//		});
+	}
+
+	public void stopRecordPlay() {
+		stopRecordPlay = false;
+		
+//		if (mPlayer != null) {
+//			Log.e("TAG1", "player not null!");
+//			mPlayer.stop();
+//			// mPlayer.release();
+//		} else
+//			Log.e("TAG1", "player  null!");
+	}
+
+	public void release() {
+		if (mPlayer.isPlaying())
+			mPlayer.stop();
+		mPlayer.release();
+	}
+
+	@Override
+	public void onError(MediaRecorder mr, int what, int extra) {
+		// TODO 自动生成的方法存根
+
+	}
+
+}

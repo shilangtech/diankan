@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="70dp"
+    android:background="@android:color/white"
+    android:gravity="center_vertical|left" >
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="40dp"
+        android:text="沈阳航空航天大学"
+        android:textColor="@color/littlegray"
+        android:textSize="16sp" />
+
+</LinearLayout>

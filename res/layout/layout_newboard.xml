@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whitegraybg" >
+
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="新留言"
+        android:textColor="@color/littlegray"
+        android:textSize="25sp"
+        tools:ignore="HardcodedText" />
+
+    <RelativeLayout
+        android:id="@+id/board_title_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titleText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="10dp" >
+
+        <EditText
+            android:id="@+id/board_title_editText"
+            style="@style/my_edittext_style"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignBottom="@+id/edittextImage"
+            android:layout_alignLeft="@+id/edittextImage"
+            android:layout_alignTop="@+id/edittextImage"
+            android:layout_centerInParent="true"
+            android:background="@drawable/round_edittext2"
+            android:hint="输入标题"
+            android:paddingRight="3dp"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/edittextImage"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:paddingLeft="10dip"
+            android:src="@drawable/edit_image" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/board_detail_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="120dp"
+        android:layout_below="@+id/board_title_layout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/round_edittext2" >
+
+        <EditText
+            android:id="@+id/board_detail_editText"
+            style="@style/my_edittext_style"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignLeft="@+id/edittextImage2"
+            android:layout_alignParentTop="true"
+            android:layout_alignTop="@+id/edittextImage2"
+            android:layout_centerInParent="true"
+            android:background="@drawable/round_edittext2"
+           
+        
+            android:gravity="top"
+            android:hint="输入内容"
+            android:paddingRight="3dp"
+            android:paddingTop="10dp"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/edittextImage2"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:paddingLeft="10dip"
+            
+            android:src="@drawable/edit_image" />
+        
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/imageViewGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/board_detail_layout"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="@drawable/addpicture" />
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/addpicturegray" />
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/addpicturegray" />
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/addpicturegray" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageViewGroup"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/locate_btn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="16dp"
+            android:background="@drawable/message_btn_dingwei" />
+
+        <RelativeLayout
+            android:id="@+id/board_search_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/locate_btn"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="12dp" >
+
+            <EditText
+                android:id="@+id/board_search_editText"
+                style="@style/my_edittext_style"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignBottom="@+id/edittextImage3"
+                android:layout_alignLeft="@+id/edittextImage3"
+                android:layout_alignTop="@+id/edittextImage3"
+                android:layout_centerInParent="true"
+                android:background="@drawable/round_edittext2"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:hint="我的位置"
+                android:paddingRight="3dp"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/edittextImage3"
+                android:layout_width="40dip"
+                android:layout_height="40dip"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dip"
+                android:src="@drawable/search" />
+
+            
+        </RelativeLayout>
+        <ListView
+                android:id="@+id/dingwei_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/board_search_layout"
+                android:layout_below="@+id/board_search_layout"
+                android:divider="@color/whitegraybg"
+                android:dividerHeight="10px"
+                android:layout_marginTop="10dp" 
+                 android:layout_marginRight="12dp" >
+            </ListView>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/message_send_menu"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="@color/littleblack"
+        android:orientation="horizontal"
+        android:visibility="visible" >
+
+        <ImageView
+            android:id="@+id/board_cancel"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="70dp"
+            android:src="@drawable/message_btn_board_cancel" />
+
+        <ImageView
+            android:id="@+id/board_send"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="70dp"
+            android:src="@drawable/message_btn_board_send" />
+    </RelativeLayout>
+
+    <include
+        android:id="@+id/message_send_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        layout="@layout/layout_message_send"
+        android:visibility="gone" />
+
+</RelativeLayout>
